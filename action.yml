@@ -1,0 +1,42 @@
+name: Discord CI status
+description: >-
+  Posts a CI or deploy failure to a Discord channel through a webhook, and deletes
+  it again once the same workflow, job and branch go green. A channel only ever
+  shows what is broken right now.
+inputs:
+  webhook:
+    description: Discord webhook URL for the channel. Empty means do nothing.
+    required: true
+  bot-token:
+    description: >-
+      Token of a bot in the same server, used to read the channel so old failures
+      can be found and deleted. Without it failures still post but never clear.
+    required: false
+    default: ""
+  status:
+    description: "Outcome to report: success, failure, cancelled or skipped. Usually ${{ job.status }}."
+    required: true
+  title:
+    description: 'Title of the failure embed, for example "tour-platform CI failed". The :x: is added.'
+    required: true
+  description:
+    description: Body of the failure embed. Default is the commit line, branch and actor.
+    required: false
+    default: ""
+  footer:
+    description: Footer text of the failure embed, for example "production | tourcockpit.com".
+    required: false
+    default: ""
+  mention:
+    description: 'Message text posted above the embed on failure, for example "<@908834861526175844>" to ping someone.'
+    required: false
+    default: ""
+  key:
+    description: >-
+      What a success clears. Default is "<workflow file>/<job id>@<branch>", so a
+      green run clears every red one of the same workflow, job and branch.
+    required: false
+    default: ""
+runs:
+  using: node20
+  main: src/index.js

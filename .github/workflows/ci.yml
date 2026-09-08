@@ -1,0 +1,29 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      - run: npm test
+
+      # The action reporting on its own test run is the live smoke test: real
+      # webhook, real channel, real bot. Red posts, green clears.
+      - name: Discord CI status
+        if: always()
+        uses: ./
+        with:
+          webhook: ${{ secrets.DISCORD_WEBHOOK_CHIP_LUCA_AUTO }}
+          bot-token: ${{ secrets.DISCORD_BOT_TOKEN }}
+          status: ${{ job.status }}
+          title: discord-ci-status CI failed
+          footer: discord-ci-status

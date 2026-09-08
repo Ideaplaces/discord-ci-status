@@ -61,7 +61,7 @@ For a workflow with several jobs, add a notify job that needs the others and der
 - On `cancelled` or `skipped` nothing happens.
 - Discord rate limits are honoured (429 with `retry_after`). Any other Discord error is logged as a workflow warning and the step exits 0. A notification never turns a green build red, and never hides a red build behind a second failure.
 
-No dependencies, no build step. Node 20, `fetch`, one file per concern under `src/`.
+No dependencies, no build step. Node 24, `fetch`, one file per concern under `src/`.
 
 ## Development
 

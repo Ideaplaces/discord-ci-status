@@ -14,7 +14,7 @@ inputs:
     required: false
     default: ""
   status:
-    description: "Outcome to report: success, failure, cancelled or skipped. Usually ${{ job.status }}."
+    description: "Outcome to report: success, failure, cancelled or skipped. Usually the job.status context."
     required: true
   title:
     description: 'Title of the failure embed, for example "tour-platform CI failed". The :x: is added.'

@@ -5,7 +5,7 @@
   "description": "GitHub Action: post a CI failure to Discord, delete it when the branch goes green",
   "type": "module",
   "scripts": {
-    "test": "node --test \"test/**/*.test.js\""
+    "test": "node --test test/*.test.js"
   },
   "engines": {
     "node": ">=20"
